@@ -1,59 +1,31 @@
 package ru.gb.timesheet.repository;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import ru.gb.timesheet.model.Timesheet;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Predicate;
 
-@Repository
-public class TimesheetRepository {
+public interface TimesheetRepository extends JpaRepository<Timesheet,Long> {
+    //select * from timesheet where project_id = $1
+    //Note:сломается , если в БД результат выдает больше одного значения
+    // Optional<Timesheet> findByProjectId(Long projectId);
 
-  private static Long sequence = 1L;
-  private final List<Timesheet> timesheets = new ArrayList<>();
+    //select * from timesheet where project_id = $1
+    //List<Timesheet> findByProjectId(Long projectId);
 
-  public Optional<Timesheet> findById(Long id) {
-    return timesheets.stream()
-      .filter(it -> Objects.equals(it.getId(), id))
-      .findFirst();
-  }
+    //select * from timesheet where project_id = $1 or minutes = $2
+    //List<Timesheet> findProjectIdOrMinutes(Long projectId, Integer minutes);
 
-  public List<Timesheet> findAll(LocalDate createdAtBefore, LocalDate createdAtAfter) {
-    Predicate<Timesheet> filter = it -> true;
+    //select * from timesheet where createdAt > $1 and createdAt < $1
+    List<Timesheet> findByCreatedAtBetween(LocalDate min, LocalDate max);
 
-    if (Objects.nonNull(createdAtBefore)) {
-      filter = filter.and(it -> it.getCreatedAt().isBefore(createdAtBefore));
-    }
+    //jql - java query language
+    @Query("select t from Timesheet t where t.projectId = :projectId order by t.createdAt desc")
+    List<Timesheet> findByProjectId(Long projectId);
 
-    if (Objects.nonNull(createdAtAfter)) {
-      filter = filter.and(it -> it.getCreatedAt().isAfter(createdAtAfter));
-    }
+    @Query("select t from Timesheet t where t.employeeId = :employeeId order by t.createdAt desc")
+    List<Timesheet> findByEmployeeId(Long employeeId);
 
-    return timesheets.stream()
-      .filter(filter)
-      .toList();
-  }
-
-  public Timesheet create(Timesheet timesheet) {
-    timesheet.setId(sequence++);
-    timesheets.add(timesheet);
-    return timesheet;
-  }
-
-  public void delete(Long id) {
-    timesheets.stream()
-      .filter(it -> Objects.equals(it.getId(), id))
-      .findFirst()
-      .ifPresent(timesheets::remove);
-  }
-
-  public List<Timesheet> findByProjectId(Long projectId) {
-    return timesheets.stream()
-      .filter(it -> Objects.equals(it.getProjectId(), projectId))
-      .toList();
-  }
 }

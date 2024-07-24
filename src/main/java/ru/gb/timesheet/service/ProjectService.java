@@ -6,6 +6,7 @@ import ru.gb.timesheet.model.Timesheet;
 import ru.gb.timesheet.repository.ProjectRepository;
 import ru.gb.timesheet.repository.TimesheetRepository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -30,11 +31,11 @@ public class ProjectService {
   }
 
   public Project create(Project project) {
-    return projectRepository.create(project);
+    return projectRepository.save(project);
   }
 
   public void delete(Long id) {
-    projectRepository.delete(id);
+    projectRepository.deleteById(id);
   }
 
   public List<Timesheet> getTimesheets(Long id) {
@@ -45,3 +46,4 @@ public class ProjectService {
     return timesheetRepository.findByProjectId(id);
   }
 }
+

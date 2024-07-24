@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice(basePackageClasses = ExceptionController.class)
 public class ExceptionController {
 
-  @ExceptionHandler(Exception.class)
+  //@ExceptionHandler(Exception.class)
   public ResponseEntity<ExceptionResponse> handleException(Exception e) {
     ExceptionResponse exceptionResponse = new ExceptionResponse();
     exceptionResponse.setReason(e.getMessage());
