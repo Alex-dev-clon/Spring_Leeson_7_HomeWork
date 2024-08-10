@@ -182,7 +182,10 @@ public class TimesheetControllerTest {
         Timesheet responseBody = response.getBody();
 
         assertNotNull(responseBody);
-        assertEquals(timesheet1.getId(), responseBody.getId());
+        assertEquals(timesheet2.getId(), responseBody.getId());
+        assertEquals(timesheet2.getEmployeeId(), responseBody.getEmployeeId());
+        assertEquals(timesheet2.getProjectId(), responseBody.getEmployeeId());
+        assertEquals(timesheet2.getMinutes(), responseBody.getMinutes());
     }
 
 
