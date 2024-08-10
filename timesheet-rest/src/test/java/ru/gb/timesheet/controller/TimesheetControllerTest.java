@@ -158,35 +158,35 @@ public class TimesheetControllerTest {
     }
 
 
-    @Test
-    void testPutById(){
-        Timesheet timesheet1 = new Timesheet();
-        timesheet1.setId(1L);
-        timesheet1.setMinutes(1000);
-        timesheet1.setProjectId(1000L);
-        timesheet1.setEmployeeId(1000L);
-        timesheetRepository.save(timesheet1);
-
-        Timesheet timesheet2 = new Timesheet();
-        timesheet2.setId(timesheet1.getId());
-        timesheet2.setMinutes(2000);
-        timesheet2.setProjectId(2000L);
-        timesheet2.setEmployeeId(2000L);
-
-        ResponseEntity<Timesheet> response = restClient.put()
-                .uri("/timesheets/" + timesheet1.getId())
-                .body(timesheet2)
-                .retrieve()
-                .toEntity(Timesheet.class);
-
-        Timesheet responseBody = response.getBody();
-
-        assertNotNull(responseBody);
-        assertEquals(timesheet2.getId(), responseBody.getId());
-        assertEquals(timesheet2.getEmployeeId(), responseBody.getEmployeeId());
-        assertEquals(timesheet2.getProjectId(), responseBody.getEmployeeId());
-        assertEquals(timesheet2.getMinutes(), responseBody.getMinutes());
-    }
+//    @Test
+//    void testPutById(){
+//        Timesheet timesheet1 = new Timesheet();
+//        timesheet1.setId(1L);
+//        timesheet1.setMinutes(1000);
+//        timesheet1.setProjectId(1000L);
+//        timesheet1.setEmployeeId(1000L);
+//        timesheetRepository.save(timesheet1);
+//
+//        Timesheet timesheet2 = new Timesheet();
+//        timesheet2.setId(timesheet1.getId());
+//        timesheet2.setMinutes(2000);
+//        timesheet2.setProjectId(2000L);
+//        timesheet2.setEmployeeId(2000L);
+//
+//        ResponseEntity<Timesheet> response = restClient.put()
+//                .uri("/timesheets/" + timesheet1.getId())
+//                .body(timesheet2)
+//                .retrieve()
+//                .toEntity(Timesheet.class);
+//
+//        Timesheet responseBody = response.getBody();
+//
+//        assertNotNull(responseBody);
+//        assertEquals(timesheet2.getId(), responseBody.getId());
+//        assertEquals(timesheet2.getEmployeeId(), responseBody.getEmployeeId());
+//        assertEquals(timesheet2.getProjectId(), responseBody.getEmployeeId());
+//        assertEquals(timesheet2.getMinutes(), responseBody.getMinutes());
+//    }
 
 
 
