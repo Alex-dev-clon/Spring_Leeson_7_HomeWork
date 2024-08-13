@@ -1,6 +1,7 @@
 package ru.gb.timesheet.service;
 
 import org.springframework.stereotype.Service;
+import ru.gb.aspect.logging.Logging;
 import ru.gb.timesheet.model.Project;
 import ru.gb.timesheet.model.Timesheet;
 import ru.gb.timesheet.repository.ProjectRepository;
@@ -22,6 +23,7 @@ public class ProjectService {
     this.timesheetRepository = timesheetRepository;
   }
 
+  @Logging
   public Optional<Project> findById(Long id) {
     return projectRepository.findById(id);
   }

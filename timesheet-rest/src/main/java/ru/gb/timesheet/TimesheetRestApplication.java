@@ -4,13 +4,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Import;
+import ru.gb.aspect.logging.LoggingAutoConfiguration;
 import ru.gb.timesheet.model.*;
 import ru.gb.timesheet.repository.*;
 
 import java.time.LocalDate;
 import java.util.concurrent.ThreadLocalRandom;
 
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 @SpringBootApplication
 public class TimesheetRestApplication {
 
